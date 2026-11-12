@@ -1,5 +1,5 @@
 {
-	"name": "SourceDataset_2p6",
+	"name": "DS_CustomerSource",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SourceDB",

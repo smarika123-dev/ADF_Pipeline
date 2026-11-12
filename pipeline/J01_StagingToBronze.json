@@ -1,9 +1,9 @@
 {
-	"name": "FirstTask",
+	"name": "J01_StagingToBronze",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy_2p6",
+				"name": "StagingToBronze",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -33,7 +33,6 @@
 						"tableOption": "autoCreate"
 					},
 					"enableStaging": false,
-					"validateDataConsistency": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
@@ -83,18 +82,21 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SourceDataset_2p6",
+						"referenceName": "DS_CustomerSource",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "DestinationDataset_2p6",
+						"referenceName": "DS_CustomerBronze",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"folder": {
+			"name": "Customer"
+		},
 		"annotations": [],
 		"lastPublishTime": "2026-11-12T20:25:00Z"
 	},

@@ -1,0 +1,15 @@
+{
+	"name": "adftest10111",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6212afa8-96bc-4eda-b4af-b8d6b1fe3035",
+		"tenantId": "5bfca48f-6a31-48ae-a911-94b22ecb7405"
+	}
+}

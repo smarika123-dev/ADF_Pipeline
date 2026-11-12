@@ -1,0 +1,31 @@
+{
+	"name": "SourceDataset_2p6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SourceDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "first_nm",
+				"type": "varchar"
+			},
+			{
+				"name": "last_nm",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "customer"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

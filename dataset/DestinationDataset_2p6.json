@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_2p6",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "bronze",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "customer"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

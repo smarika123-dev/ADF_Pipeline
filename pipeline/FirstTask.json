@@ -1,0 +1,102 @@
+{
+	"name": "FirstTask",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_2p6",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "dbo.customer"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.customer"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "first_nm",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "first_nm",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "last_nm",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "last_nm",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_2p6",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_2p6",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-11-12T20:25:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -18,7 +18,7 @@
 			"value": "abhendudb"
 		},
 		"LS_HTTP_Northwind_properties_typeProperties_url": {
-			"value": "https://raw.githubusercontent.com/adam-cowley/northwind-neo4j/master/data/customers.csv"
+			"value": "https://raw.githubusercontent.com/adam-cowley/northwind-neo4j/master/data/"
 		},
 		"containerUri": {
 			"value": ""

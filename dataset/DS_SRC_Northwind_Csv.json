@@ -7,8 +7,7 @@
 		},
 		"parameters": {
 			"RelativeUrl": {
-				"type": "string",
-				"defaultValue": "customers.csv"
+				"type": "string"
 			}
 		},
 		"annotations": [],

@@ -1,0 +1,46 @@
+{
+	"name": "source_data_ckecks",
+	"properties": {
+		"activities": [
+			{
+				"name": "ACT_SRC_Northwind_Csv",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_SRC_Northwind_Csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"RelativeUrl": "customers.csv"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "99_SourceDataChecks"
+		},
+		"annotations": []
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"name": "DS_SRC_Northwind_Csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_HTTP_Northwind",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"RelativeUrl": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "@dataset().RelativeUrl",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

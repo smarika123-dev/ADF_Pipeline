@@ -17,7 +17,8 @@
 			"schema": {
 				"value": "@dataset().source_table_name",
 				"type": "Expression"
-			}
+			},
+			"table": "@dataset().source_table_name"
 		}
 	}
 }

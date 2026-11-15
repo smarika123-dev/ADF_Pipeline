@@ -8,6 +8,10 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.table_list",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "ACT_SRC_Northwind_Csv",
@@ -23,17 +27,24 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "AzureSqlSource",
-									"queryTimeout": "02:00:00",
-									"partitionOption": "None"
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "HttpReadSettings",
+										"requestMethod": "GET"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
 								},
 								"sink": {
-									"type": "DelimitedTextSink",
-									"formatSettings": {
-										"type": "DelimitedTextWriteSettings",
-										"quoteAllText": true,
-										"fileExtension": ".txt"
-									}
+									"type": "AzureSqlSink",
+									"preCopyScript": {
+										"value": "IF OBJECT_ID('dbo.@{item().table_name}', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.@{item().table_name};\nEND",
+										"type": "Expression"
+									},
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"disableMetricsCollection": false
 								},
 								"enableStaging": false,
 								"translator": {
@@ -47,11 +58,11 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_SourceDB",
+									"referenceName": "DS_SRC_Northwind_Csv",
 									"type": "DatasetReference",
 									"parameters": {
-										"source_table_name": {
-											"value": "@pipeline().parameters.source_table_name",
+										"RelativeUrl": {
+											"value": "@item().file_name",
 											"type": "Expression"
 										}
 									}
@@ -59,11 +70,11 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DS_SRC_Northwind_Csv",
+									"referenceName": "DS_SourceDB",
 									"type": "DatasetReference",
 									"parameters": {
-										"RelativeUrl": {
-											"value": "@pipeline().parameters.RelativeUrl",
+										"source_table_name": {
+											"value": "@item().table_name",
 											"type": "Expression"
 										}
 									}

@@ -45,18 +45,37 @@
 						"referenceName": "DS_SRC_Northwind_Csv",
 						"type": "DatasetReference",
 						"parameters": {
-							"RelativeUrl": "customers.csv"
+							"RelativeUrl": {
+								"value": "@pipeline().parameters.RelativeUrl",
+								"type": "Expression"
+							}
 						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "DS_SourceDB",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"source_table_name": {
+								"value": "@pipeline().parameters.source_table_name",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
 		],
+		"parameters": {
+			"RelativeUrl": {
+				"type": "String",
+				"defaultValue": "customers.csv"
+			},
+			"source_table_name": {
+				"type": "String",
+				"defaultValue": "customers"
+			}
+		},
 		"folder": {
 			"name": "99_SourceDataChecks"
 		},

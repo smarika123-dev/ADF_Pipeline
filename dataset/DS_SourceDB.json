@@ -5,8 +5,19 @@
 			"referenceName": "LS_AzureSqlDb",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"source_table_name": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().source_table_name",
+				"type": "Expression"
+			}
+		}
 	}
 }

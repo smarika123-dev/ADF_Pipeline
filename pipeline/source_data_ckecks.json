@@ -70,6 +70,12 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"parameters": {
@@ -80,6 +86,39 @@
 			"source_table_name": {
 				"type": "String",
 				"defaultValue": "customers"
+			},
+			"table_list": {
+				"type": "array",
+				"defaultValue": [
+					{
+						"file_name": "customers.csv",
+						"table_name": "Customer"
+					},
+					{
+						"file_name": "products.csv",
+						"table_name": "Product"
+					},
+					{
+						"file_name": "orders.csv",
+						"table_name": "Orders"
+					},
+					{
+						"file_name": "suppliers.csv",
+						"table_name": "Supplier"
+					},
+					{
+						"file_name": "categories.csv",
+						"table_name": "Category"
+					},
+					{
+						"file_name": "employees.csv",
+						"table_name": "Employee"
+					},
+					{
+						"file_name": "shippers.csv",
+						"table_name": "Shipper"
+					}
+				]
 			}
 		},
 		"folder": {

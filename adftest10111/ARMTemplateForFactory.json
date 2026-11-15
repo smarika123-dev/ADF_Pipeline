@@ -25,7 +25,7 @@
 		},
 		"LS_HTTP_Northwind_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/adam-cowley/northwind-neo4j/master/data/"
+			"defaultValue": "https://raw.githubusercontent.com/alessiodevoto/northwind/refs/heads/main/"
 		}
 	},
 	"variables": {
@@ -80,8 +80,7 @@
 				},
 				"parameters": {
 					"RelativeUrl": {
-						"type": "string",
-						"defaultValue": "customers.csv"
+						"type": "string"
 					}
 				},
 				"annotations": [],
@@ -96,14 +95,136 @@
 					},
 					"columnDelimiter": ",",
 					"rowDelimiter": "\n",
-					"escapeChar": "\\",
+					"escapeChar": "\"",
 					"firstRowAsHeader": true,
-					"quoteChar": null
+					"quoteChar": "\""
 				},
 				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_HTTP_Northwind')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/source_data_ckecks')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ACT_SRC_Northwind_Csv",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "IF OBJECT_ID('dbo.Customer', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.Customer;\nEND",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_SRC_Northwind_Csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"RelativeUrl": {
+										"value": "@pipeline().parameters.RelativeUrl",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_SourceDB",
+								"type": "DatasetReference",
+								"parameters": {
+									"source_table_name": {
+										"value": "@pipeline().parameters.source_table_name",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"RelativeUrl": {
+						"type": "String",
+						"defaultValue": "customers.csv"
+					},
+					"source_table_name": {
+						"type": "String",
+						"defaultValue": "customers"
+					}
+				},
+				"folder": {
+					"name": "99_SourceDataChecks"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_SRC_Northwind_Csv')]",
+				"[concat(variables('factoryId'), '/datasets/DS_SourceDB')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SourceDB')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_AzureSqlDb",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"source_table_name": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "@dataset().source_table_name"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_AzureSqlDb')]"
 			]
 		}
 	]

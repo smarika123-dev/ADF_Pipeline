@@ -27,6 +27,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
+						"preCopyScript": "IF OBJECT_ID('dbo.Customer', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.Customer;\nEND",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",

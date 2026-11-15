@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://github.com/alessiodevoto/northwind/blob/main/",
+			"url": "https://raw.githubusercontent.com/alessiodevoto/northwind/refs/heads/main/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}

@@ -27,7 +27,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "IF OBJECT_ID('dbo.Customers', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.Customers;\nEND",
+						"preCopyScript": {
+							"value": "IF OBJECT_ID('dbo.@{pipeline().parameters.source_table_name}', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.@{pipeline().parameters.source_table_name};\nEND",
+							"type": "Expression"
+						},
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",

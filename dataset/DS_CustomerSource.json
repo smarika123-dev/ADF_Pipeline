@@ -1,10 +1,6 @@
 {
 	"name": "DS_CustomerSource",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "SourceDB",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": [

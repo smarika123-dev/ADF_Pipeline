@@ -3,73 +3,75 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ACT_SRC_Northwind_Csv",
-				"type": "Copy",
+				"name": "FE_Source_Table_Load",
+				"type": "ForEach",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+					"activities": [
+						{
+							"name": "ACT_SRC_Northwind_Csv",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "DS_SourceDB",
+									"type": "DatasetReference",
+									"parameters": {
+										"source_table_name": {
+											"value": "@pipeline().parameters.source_table_name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DS_SRC_Northwind_Csv",
+									"type": "DatasetReference",
+									"parameters": {
+										"RelativeUrl": {
+											"value": "@pipeline().parameters.RelativeUrl",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"preCopyScript": {
-							"value": "IF OBJECT_ID('dbo.@{pipeline().parameters.source_table_name}', 'U') IS NOT NULL\nBEGIN\n    DROP TABLE dbo.@{pipeline().parameters.source_table_name};\nEND",
-							"type": "Expression"
-						},
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_SRC_Northwind_Csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"RelativeUrl": {
-								"value": "@pipeline().parameters.RelativeUrl",
-								"type": "Expression"
-							}
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_SourceDB",
-						"type": "DatasetReference",
-						"parameters": {
-							"source_table_name": {
-								"value": "@pipeline().parameters.source_table_name",
-								"type": "Expression"
-							}
-						}
-					}
-				]
+					]
+				}
 			}
 		],
 		"parameters": {

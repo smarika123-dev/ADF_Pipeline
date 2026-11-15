@@ -1,5 +1,5 @@
 {
-	"name": "source_data_ckecks",
+	"name": "01_get_source_customer_data",
 	"properties": {
 		"activities": [
 			{

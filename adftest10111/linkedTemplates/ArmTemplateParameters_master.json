@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adftest10111"
+		},
+		"LS_AzureSqlDb_password": {
+			"value": ""
+		},
+		"LS_AzureSqlDb_properties_typeProperties_server": {
+			"value": "sqlsrv-abhenduchowdhury.database.windows.net"
+		},
+		"LS_AzureSqlDb_properties_typeProperties_database": {
+			"value": "db-ac"
+		},
+		"LS_AzureSqlDb_properties_typeProperties_userName": {
+			"value": "abhendudb"
+		},
+		"LS_HTTP_Northwind_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/adam-cowley/northwind-neo4j/master/data/customers.csv"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

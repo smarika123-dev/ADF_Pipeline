@@ -1,0 +1,12 @@
+{
+	"name": "LS_HTTP_Northwind",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/adam-cowley/northwind-neo4j/master/data/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
